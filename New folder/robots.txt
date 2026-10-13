@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+
+Sitemap: https://yuosejoo2010-sys.github.io/yusufdessouky.github.io/sitemap.xml
