@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0a1628">
+  <title>إدارة آراء الزوار | Yusuf Dessouky</title>
+  <link rel="stylesheet" href="./admin.css">
+  <script src="./admin.js" defer></script>
+</head>
+<body>
+  <main class="admin-shell">
+    <a class="back-link" href="./index.html#feedback">العودة إلى الموقع</a>
+    <header class="admin-heading">
+      <p class="eyebrow">لوحة خاصة</p>
+      <h1>إدارة <span>آراء الزوار</span></h1>
+      <p>الرسائل الجديدة لا تظهر على الموقع حتى توافق عليها.</p>
+    </header>
+
+    <section id="loginPanel" class="panel" aria-labelledby="loginTitle">
+      <h2 id="loginTitle">تسجيل الدخول</h2>
+      <form id="loginForm">
+        <label for="adminPassword">كلمة مرور الإدارة</label>
+        <input id="adminPassword" name="password" type="password" autocomplete="current-password" minlength="16" required>
+        <button class="button primary" type="submit">دخول آمن</button>
+      </form>
+      <p id="loginStatus" class="status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section id="dashboard" class="panel" hidden aria-labelledby="dashboardTitle">
+      <div class="dashboard-toolbar">
+        <h2 id="dashboardTitle">الرسائل</h2>
+        <div class="toolbar-actions">
+          <label class="visually-hidden" for="statusFilter">حالة الرسائل</label>
+          <select id="statusFilter">
+            <option value="pending">قيد المراجعة</option>
+            <option value="approved">مقبولة ومنشورة</option>
+            <option value="rejected">مرفوضة</option>
+          </select>
+          <button id="refreshButton" class="button secondary" type="button">تحديث</button>
+          <button id="logoutButton" class="button secondary" type="button">خروج</button>
+        </div>
+      </div>
+      <p id="dashboardStatus" class="status" role="status" aria-live="polite"></p>
+      <div id="reviewList" class="review-list" aria-live="polite"></div>
+    </section>
+  </main>
+</body>
+</html>

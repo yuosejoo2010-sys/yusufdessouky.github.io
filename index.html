@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5460926465218696"
      crossorigin="anonymous"></script>
 <meta charset="UTF-8">
@@ -217,6 +218,8 @@ Programming
     background: radial-gradient(circle, rgba(6,182,212,0.35), transparent 70%);
     top: -200px; right: -200px;
     animation: float1 20s ease-in-out infinite;
+    translate: var(--bg-x-1, 0px) var(--bg-y-1, 0px);
+    transition: translate 350ms ease-out;
   }
   
   .bg-animation::after {
@@ -224,6 +227,8 @@ Programming
     background: radial-gradient(circle, rgba(139,92,246,0.3), transparent 70%);
     bottom: -200px; left: -200px;
     animation: float2 25s ease-in-out infinite;
+    translate: var(--bg-x-2, 0px) var(--bg-y-2, 0px);
+    transition: translate 500ms ease-out;
   }
   
   .bg-orb {
@@ -235,6 +240,16 @@ Programming
     border-radius: 50%;
     filter: blur(80px);
     animation: float3 30s ease-in-out infinite;
+    translate: var(--bg-x-3, 0px) var(--bg-y-3, 0px);
+    transition: translate 650ms ease-out;
+  }
+
+  .background-motion-paused .bg-animation::before,
+  .background-motion-paused .bg-animation::after,
+  .background-motion-paused .bg-orb {
+    animation-play-state: paused !important;
+    translate: 0 0 !important;
+    transition: none !important;
   }
   
   @keyframes float1 {
@@ -348,6 +363,29 @@ Programming
   }
   
   .menu-toggle:hover { background: rgba(148, 163, 184, 0.1); }
+
+  .motion-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    min-height: 42px;
+    padding: 0.55rem 0.8rem;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    background: rgba(15, 31, 61, 0.72);
+    color: var(--text-secondary);
+    font: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all var(--transition);
+  }
+
+  .motion-toggle:hover {
+    color: var(--text-primary);
+    border-color: var(--accent);
+    background: rgba(6, 182, 212, 0.12);
+  }
   
   .hero {
     min-height: 100vh;
@@ -936,6 +974,142 @@ Programming
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 1.2rem;
   }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 1.5rem;
+  }
+
+  .gallery-card {
+    overflow: hidden;
+    margin: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+  }
+
+  .gallery-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-md);
+  }
+
+  .gallery-card a { display: block; }
+
+  .gallery-card img {
+    display: block;
+    width: 100%;
+    max-height: 520px;
+    aspect-ratio: 3 / 4;
+    object-fit: contain;
+    background: var(--bg-primary);
+  }
+
+  .gallery-card figcaption {
+    padding: 0.8rem 1rem;
+    color: var(--text-secondary);
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: 1rem;
+  }
+
+  .review-card {
+    padding: 1.4rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+  }
+
+  .review-card blockquote {
+    margin: 0;
+    color: var(--text-primary);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  .review-card figcaption {
+    margin-top: 0.9rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+
+  .reviews-empty {
+    grid-column: 1 / -1;
+    padding: 1.25rem;
+    color: var(--text-secondary);
+    text-align: center;
+    border: 1px dashed var(--border-strong);
+    border-radius: var(--radius-md);
+  }
+
+  .review-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    max-width: 900px;
+    margin-top: 1.5rem;
+    padding: 1.4rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+  }
+
+  .review-field { display: grid; gap: 0.5rem; }
+  .review-field-message { grid-column: 1 / -1; }
+  .review-field label { color: var(--text-primary); font-weight: 600; }
+  .review-field label span { color: var(--accent); }
+  .review-field input,
+  .review-field textarea {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+    background: rgba(10, 22, 40, 0.82);
+    color: var(--text-primary);
+    font: inherit;
+  }
+  .review-field textarea { min-height: 150px; resize: vertical; }
+  .review-field input:focus,
+  .review-field textarea:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .review-form-status { grid-column: 1 / -1; min-height: 1.5em; margin: 0; color: var(--text-secondary); }
+  .review-form-status[data-state="error"] { color: #fca5a5; }
+  .review-form-status[data-state="success"] { color: #6ee7b7; }
+  .review-form .btn { justify-self: start; }
+  .review-form .btn:disabled { cursor: not-allowed; opacity: 0.55; transform: none; }
+  .review-honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .feedback-admin-link { display: inline-block; margin-top: 1rem; color: var(--text-secondary); text-underline-offset: 3px; }
+  .feedback-admin-link:hover { color: var(--accent); }
+
+  @media (max-width: 600px) {
+    .review-form { grid-template-columns: 1fr; padding: 1rem; }
+    .review-field-message, .review-form-status { grid-column: auto; }
+  }
+
+  .footer-legal-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.55rem 1rem;
+    margin-top: 1.2rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  .footer-legal-links a {
+    color: var(--text-secondary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .footer-legal-links a:hover { color: var(--accent); }
   
   .hardware-card {
     background: var(--bg-card);
@@ -1347,6 +1521,14 @@ Programming
       transition-duration: 0.01ms !important;
     }
     html { scroll-behavior: auto; }
+
+    body.background-motion-enabled .bg-animation::before,
+    body.background-motion-enabled .bg-animation::after,
+    body.background-motion-enabled .bg-orb {
+      animation-duration: 20s !important;
+      animation-iteration-count: infinite !important;
+      transition-duration: 350ms !important;
+    }
   }
   
   :focus-visible {
@@ -1376,11 +1558,17 @@ Programming
   <ul class="nav-links" id="navLinks">
     <li><a href="#home" class="nav-link active" data-section="home">الرئيسية</a></li>
     <li><a href="#about" class="nav-link" data-section="about">من أنا</a></li>
+    <li><a href="#gallery" class="nav-link" data-section="gallery">معرض الصور</a></li>
+    <li><a href="#feedback" class="nav-link" data-section="feedback">قول رأيك</a></li>
     <li><a href="#interests" class="nav-link" data-section="interests">الاهتمامات</a></li>
     <li><a href="#tech" class="nav-link" data-section="tech">التقنيات</a></li>
     <li><a href="#hardware" class="nav-link" data-section="hardware">الجهاز</a></li>
     <li><a href="#contact" class="nav-link" data-section="contact">تواصل</a></li>
   </ul>
+  <button class="motion-toggle" id="motionToggle" type="button" title="إيقاف حركة الخلفية">
+    <i class="fas fa-pause" aria-hidden="true"></i>
+    <span id="motionToggleLabel">إيقاف الحركة</span>
+  </button>
   <button class="menu-toggle" onclick="toggleMenu()" aria-label="فتح القائمة">
     <i class="fas fa-bars"></i>
   </button>
@@ -1519,6 +1707,61 @@ Programming
       </div>
     </div>
   </div>
+</section>
+
+<section id="gallery" class="reveal">
+  <div class="section-header">
+    <div class="section-tag">معرض الصور</div>
+    <h2 class="section-title">صوري <span>١ و٣</span></h2>
+    <p class="section-desc">اضغط على أي صورة لفتحها بالحجم الكامل</p>
+  </div>
+
+  <div class="gallery-grid">
+    <figure class="gallery-card">
+      <a href="./assets/1.jpg" target="_blank" rel="noopener noreferrer" aria-label="فتح الصورة 1 بالحجم الكامل">
+        <img src="./assets/1.jpg" alt="يوسف يرتدي قبعة سوداء وقميصًا رياضيًا" loading="lazy" decoding="async">
+      </a>
+      <figcaption>الصورة 1</figcaption>
+    </figure>
+    <figure class="gallery-card">
+      <a href="./assets/3.jpg" target="_blank" rel="noopener noreferrer" aria-label="فتح الصورة 3 بالحجم الكامل">
+        <img src="./assets/3.jpg" alt="يوسف أمام مبنى في الشارع ليلًا" loading="lazy" decoding="async">
+      </a>
+      <figcaption>الصورة 3</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="feedback" class="reveal">
+  <div class="section-header">
+    <div class="section-tag">آراء الزوار</div>
+    <h2 class="section-title">قول <span>رأيك فيّ</span></h2>
+    <p class="section-desc">الآراء المعروضة هنا تُراجع قبل النشر. الاسم اختياري، والرأي مطلوب. لا تكتب معلومات خاصة.</p>
+  </div>
+  <div id="publishedReviews" class="reviews-grid" aria-live="polite">
+    <p class="reviews-empty">لا توجد آراء منشورة حتى الآن.</p>
+  </div>
+  <p class="section-desc" style="margin-top: 1.5rem;">لن يظهر رأيك للزوار إلا بعد مراجعته والموافقة عليه.</p>
+  <form id="reviewForm" class="review-form">
+    <div class="review-field">
+      <label for="reviewName">الاسم <span>(اختياري)</span></label>
+      <input id="reviewName" name="name" type="text" maxlength="60" autocomplete="name">
+    </div>
+    <div class="review-field review-field-message">
+      <label for="reviewMessage">رأيك في يوسف <span aria-hidden="true">*</span></label>
+      <textarea id="reviewMessage" name="message" required minlength="3" maxlength="1000" aria-describedby="reviewFormStatus"></textarea>
+    </div>
+    <div class="review-honeypot" aria-hidden="true">
+      <label for="reviewWebsite">اترك هذا الحقل فارغًا</label>
+      <input id="reviewWebsite" name="website" type="text" tabindex="-1" autocomplete="off">
+    </div>
+    <p id="reviewFormStatus" class="review-form-status" role="status" aria-live="polite">جارٍ الاتصال بخدمة الآراء...</p>
+    <button id="reviewSubmit" class="btn btn-primary" type="submit" disabled>
+      <i class="fas fa-paper-plane" aria-hidden="true"></i>
+      أرسل رأيك للمراجعة
+    </button>
+  </form>
+  <a class="feedback-admin-link" href="./admin.html">لوحة إدارة آراء الزوار</a>
 </section>
 
 <section id="interests" class="reveal">
@@ -1769,6 +2012,14 @@ Programming
         <i class="fas fa-phone"></i>
       </a>
     </div>
+
+    <div class="footer-legal-links">
+      <a href="./privacy.html">سياسة الخصوصية</a>
+      <span aria-hidden="true">•</span>
+      <a href="./privacy.html#cookies">سياسة ملفات تعريف الارتباط</a>
+      <span aria-hidden="true">•</span>
+      <a href="./privacy.html#cookies" onclick="return openPrivacySettings(event)">إعدادات الخصوصية والكوكيز</a>
+    </div>
     
     <p class="footer-text">
       صُنع بـ <span>❤️</span> بواسطة <span>المبرمج يوسف دسوقي محمد السيد</span> • 2026
@@ -1777,6 +2028,77 @@ Programming
 </footer>
 
 <script>
+  const motionToggle = document.getElementById('motionToggle');
+  const motionToggleLabel = document.getElementById('motionToggleLabel');
+  const backgroundLayer = document.querySelector('.bg-animation');
+  const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let backgroundMotionEnabled = !reducedMotionQuery.matches;
+  let hasSavedMotionChoice = false;
+
+  try {
+    const savedMotionChoice = localStorage.getItem('yd-background-motion');
+    if (savedMotionChoice === 'on' || savedMotionChoice === 'off') {
+      backgroundMotionEnabled = savedMotionChoice === 'on';
+      hasSavedMotionChoice = true;
+    }
+  } catch (error) {}
+
+  function setBackgroundMotionEnabled(enabled, saveChoice = false) {
+    backgroundMotionEnabled = enabled;
+    document.body.classList.toggle('background-motion-paused', !enabled);
+    document.body.classList.toggle('background-motion-enabled', enabled);
+    motionToggle.title = enabled ? 'إيقاف حركة الخلفية' : 'تشغيل حركة الخلفية';
+    motionToggle.setAttribute('aria-label', motionToggle.title);
+    motionToggleLabel.textContent = enabled ? 'إيقاف الحركة' : 'تشغيل الحركة';
+    motionToggle.querySelector('i').className = enabled ? 'fas fa-pause' : 'fas fa-play';
+
+    if (!enabled) {
+      backgroundLayer.style.setProperty('--bg-x-1', '0px');
+      backgroundLayer.style.setProperty('--bg-y-1', '0px');
+      backgroundLayer.style.setProperty('--bg-x-2', '0px');
+      backgroundLayer.style.setProperty('--bg-y-2', '0px');
+      backgroundLayer.style.setProperty('--bg-x-3', '0px');
+      backgroundLayer.style.setProperty('--bg-y-3', '0px');
+    }
+
+    if (saveChoice) {
+      hasSavedMotionChoice = true;
+      try { localStorage.setItem('yd-background-motion', enabled ? 'on' : 'off'); } catch (error) {}
+    }
+  }
+
+  setBackgroundMotionEnabled(backgroundMotionEnabled);
+  motionToggle.addEventListener('click', () => setBackgroundMotionEnabled(!backgroundMotionEnabled, true));
+  reducedMotionQuery.addEventListener('change', (event) => {
+    if (!hasSavedMotionChoice) setBackgroundMotionEnabled(!event.matches);
+  });
+
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    let pointerFrame = 0;
+    window.addEventListener('pointermove', (event) => {
+      if (!backgroundMotionEnabled || event.pointerType === 'touch') return;
+      const offsetX = event.clientX / window.innerWidth - 0.5;
+      const offsetY = event.clientY / window.innerHeight - 0.5;
+      if (pointerFrame) cancelAnimationFrame(pointerFrame);
+      pointerFrame = requestAnimationFrame(() => {
+        backgroundLayer.style.setProperty('--bg-x-1', `${-offsetX * 22}px`);
+        backgroundLayer.style.setProperty('--bg-y-1', `${-offsetY * 22}px`);
+        backgroundLayer.style.setProperty('--bg-x-2', `${offsetX * 34}px`);
+        backgroundLayer.style.setProperty('--bg-y-2', `${offsetY * 34}px`);
+        backgroundLayer.style.setProperty('--bg-x-3', `${-offsetX * 48}px`);
+        backgroundLayer.style.setProperty('--bg-y-3', `${-offsetY * 48}px`);
+      });
+    }, { passive: true });
+  }
+
+  function openPrivacySettings(event) {
+    const googlefc = window.googlefc;
+    if (googlefc && googlefc.callbackQueue && googlefc.showRevocationMessage) {
+      event.preventDefault();
+      googlefc.callbackQueue.push(googlefc.showRevocationMessage);
+    }
+  }
+
   function toggleMenu() {
     document.getElementById('navLinks').classList.toggle('active');
   }
@@ -1866,6 +2188,92 @@ Programming
   }
   
   typeEffect();
+
+  const reviewForm = document.getElementById('reviewForm');
+  const reviewFormStatus = document.getElementById('reviewFormStatus');
+  const reviewSubmit = document.getElementById('reviewSubmit');
+  let reviewApiReady = false;
+
+  function setReviewStatus(message, state = '') {
+    reviewFormStatus.textContent = message;
+    if (state) reviewFormStatus.dataset.state = state;
+    else delete reviewFormStatus.dataset.state;
+  }
+
+  function renderApprovedReviews(reviews) {
+    const container = document.getElementById('publishedReviews');
+    const approved = Array.isArray(reviews) ? reviews.filter(review =>
+      review && typeof review.message === 'string' && review.message.trim() &&
+      typeof review.name === 'string'
+    ) : [];
+
+    container.replaceChildren();
+    if (!approved.length) {
+      const empty = document.createElement('p');
+      empty.className = 'reviews-empty';
+      empty.textContent = 'لا توجد آراء منشورة حتى الآن.';
+      container.append(empty);
+      return;
+    }
+
+    approved.forEach(review => {
+      const card = document.createElement('figure');
+      card.className = 'review-card';
+      const quote = document.createElement('blockquote');
+      quote.textContent = review.message.trim();
+      const name = document.createElement('figcaption');
+      name.textContent = review.name.trim() || 'زائر الموقع';
+      card.append(quote, name);
+      container.append(card);
+    });
+  }
+
+  async function loadApprovedReviews() {
+    try {
+      const response = await fetch('./api/reviews', { cache: 'no-store', headers: { Accept: 'application/json' } });
+      if (!response.ok) throw new Error('خدمة الآراء غير متاحة');
+      const data = await response.json();
+      renderApprovedReviews(data.reviews);
+      reviewApiReady = true;
+      reviewSubmit.disabled = false;
+      setReviewStatus('لن يظهر رأيك للزوار إلا بعد مراجعته والموافقة عليه.');
+    } catch (error) {
+      reviewApiReady = false;
+      reviewSubmit.disabled = true;
+      setReviewStatus('إرسال الآراء متاح بعد نشر الموقع على Cloudflare Pages وربط قاعدة D1.');
+    }
+  }
+
+  reviewForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!reviewApiReady || !reviewForm.reportValidity()) return;
+
+    reviewSubmit.disabled = true;
+    setReviewStatus('جارٍ إرسال رأيك للمراجعة...');
+    const formData = new FormData(reviewForm);
+
+    try {
+      const response = await fetch('./api/reviews', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          name: formData.get('name'),
+          message: formData.get('message'),
+          website: formData.get('website')
+        })
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || 'تعذر إرسال الرأي الآن. حاول لاحقًا.');
+      reviewForm.reset();
+      setReviewStatus(data.message || 'وصل رأيك وسيظهر بعد المراجعة.', 'success');
+    } catch (error) {
+      setReviewStatus(error.message || 'تعذر إرسال الرأي الآن. حاول لاحقًا.', 'error');
+    } finally {
+      reviewSubmit.disabled = !reviewApiReady;
+    }
+  });
+
+  loadApprovedReviews();
   
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {

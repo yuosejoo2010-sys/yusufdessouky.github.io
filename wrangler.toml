@@ -1,0 +1,10 @@
+name = "yusuf-dessouky"
+compatibility_date = "2026-10-13"
+pages_build_output_dir = "."
+
+[[d1_databases]]
+binding = "DB"
+database_name = "yusuf-dessouky-reviews"
+# Replace with the real D1 database ID after creating it in Cloudflare.
+database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "migrations"
