@@ -1085,8 +1085,6 @@ Programming
   .review-form .btn { justify-self: start; }
   .review-form .btn:disabled { cursor: not-allowed; opacity: 0.55; transform: none; }
   .review-honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-  .feedback-admin-link { display: inline-block; margin-top: 1rem; color: var(--text-secondary); text-underline-offset: 3px; }
-  .feedback-admin-link:hover { color: var(--accent); }
 
   @media (max-width: 600px) {
     .review-form { grid-template-columns: 1fr; padding: 1rem; }
@@ -1735,13 +1733,13 @@ Programming
 <section id="feedback" class="reveal">
   <div class="section-header">
     <div class="section-tag">آراء الزوار</div>
-    <h2 class="section-title">قول <span>رأيك فيّ</span></h2>
-    <p class="section-desc">الآراء المعروضة هنا تُراجع قبل النشر. الاسم اختياري، والرأي مطلوب. لا تكتب معلومات خاصة.</p>
+    <h2 class="section-title">قول <span>رأيك في يوسف</span></h2>
+    <p class="section-desc">اكتب رأيك، وسيظهر مباشرةً لكل زوار الموقع. الاسم اختياري؛ لا تكتب معلومات خاصة.</p>
   </div>
   <div id="publishedReviews" class="reviews-grid" aria-live="polite">
     <p class="reviews-empty">لا توجد آراء منشورة حتى الآن.</p>
   </div>
-  <p class="section-desc" style="margin-top: 1.5rem;">لن يظهر رأيك للزوار إلا بعد مراجعته والموافقة عليه.</p>
+  <p class="section-desc" style="margin-top: 1.5rem;">الاسم اختياري والرأي مطلوب، والنشر فوري للجميع.</p>
   <form id="reviewForm" class="review-form">
     <div class="review-field">
       <label for="reviewName">الاسم <span>(اختياري)</span></label>
@@ -1755,13 +1753,12 @@ Programming
       <label for="reviewWebsite">اترك هذا الحقل فارغًا</label>
       <input id="reviewWebsite" name="website" type="text" tabindex="-1" autocomplete="off">
     </div>
-    <p id="reviewFormStatus" class="review-form-status" role="status" aria-live="polite">جارٍ الاتصال بخدمة الآراء...</p>
+    <p id="reviewFormStatus" class="review-form-status" role="status" aria-live="polite">جارٍ تحميل الآراء...</p>
     <button id="reviewSubmit" class="btn btn-primary" type="submit" disabled>
       <i class="fas fa-paper-plane" aria-hidden="true"></i>
-      أرسل رأيك للمراجعة
+      انشر رأيك
     </button>
   </form>
-  <a class="feedback-admin-link" href="./admin.html">لوحة إدارة آراء الزوار</a>
 </section>
 
 <section id="interests" class="reveal">
@@ -2193,6 +2190,7 @@ Programming
   const reviewFormStatus = document.getElementById('reviewFormStatus');
   const reviewSubmit = document.getElementById('reviewSubmit');
   let reviewApiReady = false;
+  let visibleReviews = [];
 
   function setReviewStatus(message, state = '') {
     reviewFormStatus.textContent = message;
@@ -2200,15 +2198,16 @@ Programming
     else delete reviewFormStatus.dataset.state;
   }
 
-  function renderApprovedReviews(reviews) {
+  function renderPublishedReviews(reviews) {
     const container = document.getElementById('publishedReviews');
-    const approved = Array.isArray(reviews) ? reviews.filter(review =>
+    const published = Array.isArray(reviews) ? reviews.filter(review =>
       review && typeof review.message === 'string' && review.message.trim() &&
       typeof review.name === 'string'
     ) : [];
+    visibleReviews = published;
 
     container.replaceChildren();
-    if (!approved.length) {
+    if (!published.length) {
       const empty = document.createElement('p');
       empty.className = 'reviews-empty';
       empty.textContent = 'لا توجد آراء منشورة حتى الآن.';
@@ -2216,7 +2215,7 @@ Programming
       return;
     }
 
-    approved.forEach(review => {
+    published.forEach(review => {
       const card = document.createElement('figure');
       card.className = 'review-card';
       const quote = document.createElement('blockquote');
@@ -2228,50 +2227,32 @@ Programming
     });
   }
 
- ```javascript
-async function loadApprovedReviews() {
-  try {
-    const response = await fetch(
-      'https://yusufdessouky-github-io.pages.dev/api/reviews',
-      {
-        cache: 'no-store',
-        headers: { Accept: 'application/json' }
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error('خدمة الآراء غير متاحة');
+  async function loadPublishedReviews() {
+    try {
+      const response = await fetch('./api/reviews', { cache: 'no-store', headers: { Accept: 'application/json' } });
+      if (!response.ok) throw new Error('خدمة الآراء غير متاحة');
+      const data = await response.json();
+      renderPublishedReviews(data.reviews);
+      reviewApiReady = true;
+      reviewSubmit.disabled = false;
+      setReviewStatus('اكتب رأيك وسيظهر فورًا لكل الزوار.');
+    } catch {
+      reviewApiReady = false;
+      reviewSubmit.disabled = true;
+      setReviewStatus('سيُتاح النشر للجميع بعد تفعيل خدمة الآراء على الموقع.');
     }
-
-    const data = await response.json();
-    renderApprovedReviews(data.reviews || []);
-
-    reviewApiReady = true;
-    reviewSubmit.disabled = false;
-
-    setReviewStatus('اكتب رأيك وسيظهر على الموقع بعد إرساله.');
-  } catch (error) {
-    console.error('Reviews loading error:', error);
-
-    reviewApiReady = false;
-    reviewSubmit.disabled = true;
-
-    setReviewStatus('تعذر الاتصال بخدمة الآراء. حاول مرة أخرى لاحقًا.');
   }
-}
-```
-
 
   reviewForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     if (!reviewApiReady || !reviewForm.reportValidity()) return;
 
     reviewSubmit.disabled = true;
-    setReviewStatus('جارٍ إرسال رأيك للمراجعة...');
+    setReviewStatus('جارٍ نشر رأيك...');
     const formData = new FormData(reviewForm);
 
     try {
-      const response = await fetch('https://yusufdessouky-github-io.pages.dev/api/reviews', {
+      const response = await fetch('./api/reviews', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
@@ -2283,7 +2264,8 @@ async function loadApprovedReviews() {
       const data = await response.json();
       if (!response.ok) throw new Error(data.message || 'تعذر إرسال الرأي الآن. حاول لاحقًا.');
       reviewForm.reset();
-      setReviewStatus(data.message || 'وصل رأيك وسيظهر بعد المراجعة.', 'success');
+      if (data.review) renderPublishedReviews([data.review, ...visibleReviews]);
+      setReviewStatus(data.message || 'تم نشر رأيك للجميع.', 'success');
     } catch (error) {
       setReviewStatus(error.message || 'تعذر إرسال الرأي الآن. حاول لاحقًا.', 'error');
     } finally {
@@ -2291,7 +2273,7 @@ async function loadApprovedReviews() {
     }
   });
 
-  loadApprovedReviews();
+  loadPublishedReviews();
   
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
