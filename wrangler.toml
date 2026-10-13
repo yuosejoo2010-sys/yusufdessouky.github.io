@@ -5,6 +5,6 @@ pages_build_output_dir = "."
 [[d1_databases]]
 binding = "DB"
 database_name = "yusuf-dessouky-reviews"
-# Replace with the real D1 database ID after creating it in Cloudflare.
+# Cloudflare D1 database configuration.
 database_id = "67fb75dc-91d6-496d-ac2a-61d320be833a"
 migrations_dir = "migrations"
