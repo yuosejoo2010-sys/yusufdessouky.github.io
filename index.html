@@ -207,19 +207,7 @@ Programming
     pointer-events: none;
   }
 
-  .bg-photo {
-    position: fixed;
-    inset: 0;
-    z-index: -2;
-    pointer-events: none;
-    background:
-      linear-gradient(rgba(5, 10, 24, 0.18), rgba(5, 10, 24, 0.28)),
-      url("./123.png") center center / cover no-repeat;
-    background-size: cover;
-    background-position: center;
-    opacity: 1;
-  }
-  
+
   .bg-animation::before,
   .bg-animation::after {
     content: '';
@@ -597,6 +585,25 @@ Programming
     object-fit: cover;
     border-radius: 50%;
     display: block;
+  }
+  
+  /* طبقة صورة التوثيق فوق صورة البروفايل */
+  .avatar-verification {
+    position: absolute;
+    z-index: 5;
+    top: 50%;
+    left: 50%;
+    width: 42%;
+    max-width: 170px;
+    max-height: 170px;
+    height: auto;
+    object-fit: contain;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    user-select: none;
+    filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.22));
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 56%, rgba(0, 0, 0, 0.88) 68%, transparent 100%);
+    mask-image: radial-gradient(ellipse at center, #000 56%, rgba(0, 0, 0, 0.88) 68%, transparent 100%);
   }
   
   .floating-badge {
@@ -1562,7 +1569,6 @@ Programming
 </head>
 <body>
 
-<div class="bg-photo" aria-hidden="true"></div>
 <div class="bg-animation">
   <div class="bg-orb"></div>
 </div>
@@ -1625,6 +1631,13 @@ Programming
             loading="eager"
           >
         </div>
+        <img
+          src="./123.png"
+          class="avatar-verification"
+          alt="طبقة توثيق الحساب"
+          aria-hidden="true"
+          loading="eager"
+        >
         <div class="floating-badge badge-1">
           <i class="fab fa-python"></i> Python
         </div>
