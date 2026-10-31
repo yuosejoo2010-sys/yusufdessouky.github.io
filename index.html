@@ -195,6 +195,8 @@ Programming
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
+    position: relative;
+    isolation: isolate;
   }
   
   .bg-animation {
@@ -211,9 +213,11 @@ Programming
     z-index: -2;
     pointer-events: none;
     background:
-      linear-gradient(rgba(5, 10, 24, 0.88), rgba(5, 10, 24, 0.92)),
-      url("./123.jpg") center / cover no-repeat;
-    opacity: 0.42;
+      linear-gradient(rgba(5, 10, 24, 0.18), rgba(5, 10, 24, 0.28)),
+      url("./123.png") center center / cover no-repeat;
+    background-size: cover;
+    background-position: center;
+    opacity: 1;
   }
   
   .bg-animation::before,
