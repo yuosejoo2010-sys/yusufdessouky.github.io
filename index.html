@@ -128,7 +128,8 @@ Programming
     ],
     "sameAs": [
       "https://github.com/yuosejoo2010-sys",
-      "https://www.tiktok.com/@yuosef_joo4"
+      "https://www.tiktok.com/@yuosef_joo4",
+      "https://www.facebook.com/profile.php?id=100073754400109"
     ]
   }
 }
@@ -202,6 +203,17 @@ Programming
     z-index: -1;
     overflow: hidden;
     pointer-events: none;
+  }
+
+  .bg-photo {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background:
+      linear-gradient(rgba(5, 10, 24, 0.88), rgba(5, 10, 24, 0.92)),
+      url("./123.jpg") center / cover no-repeat;
+    opacity: 0.42;
   }
   
   .bg-animation::before,
@@ -1546,6 +1558,7 @@ Programming
 </head>
 <body>
 
+<div class="bg-photo" aria-hidden="true"></div>
 <div class="bg-animation">
   <div class="bg-orb"></div>
 </div>
@@ -1710,22 +1723,40 @@ Programming
 <section id="gallery" class="reveal">
   <div class="section-header">
     <div class="section-tag">معرض الصور</div>
-    <h2 class="section-title">صوري <span>١ و٣</span></h2>
+    <h2 class="section-title">صوري <span>١ إلى ٥</span></h2>
     <p class="section-desc">اضغط على أي صورة لفتحها بالحجم الكامل</p>
   </div>
 
   <div class="gallery-grid">
     <figure class="gallery-card">
-      <a href="./assets/1.jpg" target="_blank" rel="noopener noreferrer" aria-label="فتح الصورة 1 بالحجم الكامل">
-        <img src="./assets/1.jpg" alt="يوسف يرتدي قبعة سوداء وقميصًا رياضيًا" loading="lazy" decoding="async">
+      <a href="./1.jpg" target="_blank" rel="noopener noreferrer" aria-label="فتح الصورة 1 بالحجم الكامل">
+        <img src="./1.jpg" alt="يوسف - الصورة 1" loading="lazy" decoding="async">
       </a>
       <figcaption>الصورة 1</figcaption>
     </figure>
     <figure class="gallery-card">
-      <a href="./assets/3.jpg" target="_blank" rel="noopener noreferrer" aria-label="فتح الصورة 3 بالحجم الكامل">
-        <img src="./assets/3.jpg" alt="يوسف أمام مبنى في الشارع ليلًا" loading="lazy" decoding="async">
+      <a href="./2.jpg" target="_blank" rel="noopener noreferrer" aria-label="فتح الصورة 2 بالحجم الكامل">
+        <img src="./2.jpg" alt="يوسف - الصورة 2" loading="lazy" decoding="async">
+      </a>
+      <figcaption>الصورة 2</figcaption>
+    </figure>
+    <figure class="gallery-card">
+      <a href="./3.jpg" target="_blank" rel="noopener noreferrer" aria-label="فتح الصورة 3 بالحجم الكامل">
+        <img src="./3.jpg" alt="يوسف - الصورة 3" loading="lazy" decoding="async">
       </a>
       <figcaption>الصورة 3</figcaption>
+    </figure>
+    <figure class="gallery-card">
+      <a href="./4.jpg" target="_blank" rel="noopener noreferrer" aria-label="فتح الصورة 4 بالحجم الكامل">
+        <img src="./4.jpg" alt="يوسف - الصورة 4" loading="lazy" decoding="async">
+      </a>
+      <figcaption>الصورة 4</figcaption>
+    </figure>
+    <figure class="gallery-card">
+      <a href="./5.jpg" target="_blank" rel="noopener noreferrer" aria-label="فتح الصورة 5 بالحجم الكامل">
+        <img src="./5.jpg" alt="يوسف - الصورة 5" loading="lazy" decoding="async">
+      </a>
+      <figcaption>الصورة 5</figcaption>
     </figure>
   </div>
 </section>
@@ -2001,6 +2032,9 @@ Programming
       </a>
       <a href="https://www.tiktok.com/@yuosef_joo4" class="social-link" title="TikTok" aria-label="TikTok" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-tiktok"></i>
+      </a>
+      <a href="https://www.facebook.com/profile.php?id=100073754400109" class="social-link" title="Facebook" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-facebook-f"></i>
       </a>
       <a href="mailto:yuosejoo2010@gmail.com" class="social-link" title="Email" aria-label="البريد الإلكتروني">
         <i class="fas fa-envelope"></i>
